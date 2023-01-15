@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentication',
     'news',
     'team',
+    'games',
 ]
 
 MIDDLEWARE = [

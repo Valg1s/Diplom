@@ -1,0 +1,5 @@
+{% if redirect_to and parameter %}
+<a class="btn" href="{% url redirect_to id=parameter %}"> {{ text }} </a>
+{% else %}
+<p> {{ text }} </p>
+{% endif %}

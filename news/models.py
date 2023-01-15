@@ -4,6 +4,8 @@ from datetime import timedelta
 from django.db import models
 from django.utils import timezone
 
+from games.models import Tournament
+
 
 # Create your models here.
 
@@ -14,6 +16,8 @@ class News(models.Model):
     photo_content = models.ImageField(default="default.png", verbose_name="Фотографія")
     date_of_pub = models.DateTimeField(null=False, default=timezone.now(),
                                        verbose_name="Дата публікації")
+    tournament = models.ForeignKey(Tournament,on_delete=models.DO_NOTHING,related_name="tournament_news"
+                                   ,null=True,blank=True,verbose_name="Турнір:")
 
     class Meta:
         verbose_name_plural = 'Новини'
@@ -36,19 +40,23 @@ class News(models.Model):
 
     @staticmethod
     def delete_by_id(id):
-        if News.objects.filter(news_id=id).delete()[0] == 0:
+        News.objects.filter(news_id=id).delete()
+        if not News.objects.filter(news_id=id):
             return True
         else:
             raise "Оголошення не знайдено"
 
     @staticmethod
-    def create(title, content, image='default.png'):
+    def create(title, content, image='default.png',tournament = None):
         if len(title) < 5:
-            return None
+            return False
         else:
-            news = News(title=title, content=content, image=image, date_of_pub=timezone.now())
-            news.save()
+            if tournament:
+                news = News(title=title, content=content, photo_content=image, date_of_pub=timezone.now())
+            else:
+                news = News(title=title, content=content, photo_content=image, date_of_pub=timezone.now(),tournament=tournament)
 
+            news.save()
             return True
 
     def to_dict(self):
@@ -65,6 +73,8 @@ class News(models.Model):
 
         if content:
             self.content = content
+
+        self.save()
 
         return None
 

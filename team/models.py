@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.utils import timezone
 
 from authentication.models import CustomUser
 
@@ -10,7 +11,7 @@ class Team(models.Model):
     team_name = models.CharField(null=False, max_length=128, verbose_name="Назва команди")
     team_coach = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, verbose_name="Тренер",related_name="Тренер")
     year_of_create = models.IntegerField(null=False, default=int(datetime.now().year), verbose_name="Рік створення")
-    players = models.ManyToManyField(CustomUser, null=True, verbose_name="Гравці",related_name="Гравець")
+    players = models.ManyToManyField(CustomUser, null=True,blank=True, verbose_name="Гравці",related_name="Гравець")
     logo = models.ImageField(null=True, default="default_logo.png",verbose_name="Логотип")
 
     class Meta:
@@ -37,7 +38,7 @@ class Team(models.Model):
         if Team.objects.filter(team_id=id).delete()[0] == 0:
             return True
         else:
-            raise "Оголошення не знайдено"
+            raise "Команду не знайдено"
 
     @staticmethod
     def create(name, coach, year=None, logo=None):
@@ -71,6 +72,8 @@ class Team(models.Model):
         if logo:
             self.logo = logo
 
+        self.save()
+
     def delete_player_by_id(self,id):
         for player in self.players:
             if player.user_id == id:
@@ -86,6 +89,4 @@ class Team(models.Model):
     @staticmethod
     def get_all():
         return Team.objects.all()
-
-
 

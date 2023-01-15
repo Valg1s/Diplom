@@ -1,7 +1,8 @@
 import datetime
 
-from django.contrib.auth.base_user import AbstractBaseUser , BaseUserManager
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
+
 
 ROLE_CHOICES = (
     (0, 'Адміністратор'),
@@ -12,6 +13,7 @@ ROLE_CHOICES = (
 
 def time_c(x):
     return int(datetime.datetime.timestamp(x))
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -49,19 +51,18 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser):
-
     user_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=20, default='', verbose_name = "Ім'я")
-    last_name = models.CharField(max_length=20, default='', verbose_name = "Прізвище")
-    middle_name = models.CharField(max_length=20, default='', verbose_name = "По батькові")
-    email = models.EmailField(max_length=100, unique=True, default='', verbose_name = "Email")
-    password = models.CharField(max_length=200, verbose_name = "Пароль")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name = "Створений в")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name = "Оновлений")
-    role = models.IntegerField(default=2, choices=ROLE_CHOICES, verbose_name = "Роль")
-    is_active = models.BooleanField(default=False, verbose_name = "Є активним?")
-    is_staff = models.BooleanField(default=False , verbose_name = "Має доступ до адмін панелі?")
-    is_superuser = models.BooleanField(default=False, verbose_name = "Є суперюзером?")
+    first_name = models.CharField(max_length=20, default='', verbose_name="Ім'я")
+    last_name = models.CharField(max_length=20, default='', verbose_name="Прізвище")
+    middle_name = models.CharField(max_length=20, default='', verbose_name="По батькові")
+    email = models.EmailField(max_length=100, unique=True, default='', verbose_name="Email")
+    password = models.CharField(max_length=200,default="standartpassword", verbose_name="Пароль")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створений в")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Оновлений")
+    role = models.IntegerField(default=2, choices=ROLE_CHOICES, verbose_name="Роль")
+    is_active = models.BooleanField(default=False, verbose_name="Є активним?")
+    is_staff = models.BooleanField(default=False, verbose_name="Має доступ до адмін панелі?")
+    is_superuser = models.BooleanField(default=False, verbose_name="Є суперюзером?")
 
     USERNAME_FIELD = 'email'
     objects = CustomUserManager()
@@ -159,6 +160,8 @@ class CustomUser(AbstractBaseUser):
         if is_active:
             self.is_active = is_active
 
+        self.save()
+
         return None
 
     @staticmethod
@@ -177,3 +180,89 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class PlayerStatistic(models.Model):
+    stat_id = models.AutoField(primary_key=True)
+    player = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name="player_stat", verbose_name="Гравець")
+    games = models.IntegerField(null=True,default=0, verbose_name="Ігри")
+    points = models.IntegerField(null=True,default=0, verbose_name="Зароблено пунктів")
+    defence = models.IntegerField(null=True,default=0, verbose_name="Успішних захистів")
+    year = models.IntegerField(null=False, default=int(datetime.datetime.now().year), verbose_name="Рік статистики")
+
+    class Meta:
+        verbose_name = "статистику"
+        verbose_name_plural = 'Статистика'
+
+    def __str__(self):
+        return f"{self.stat_id}) {self.player.last_name if self.player.last_name else ''} " \
+               f"{self.player.first_name if self.player.first_name else ''} " \
+               f"{self.player.middle_name if self.player.middle_name else ''} : {self.year}"
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}(id={self.stat_id})'
+
+    @staticmethod
+    def get_by_id(id):
+        stat = PlayerStatistic.objects.filter(stat_id=id)[0]
+
+        if stat:
+            return stat
+        else:
+            raise "Статистику не знайдено"
+
+    @staticmethod
+    def delete_by_id(id):
+        if PlayerStatistic.objects.filter(stat_id=id).delete()[0] == 0:
+            return True
+        else:
+            raise "Статистику не знайдено"
+
+    @staticmethod
+    def create(player, year):
+        if player and year:
+            stat = PlayerStatistic(player=player, year=year)
+            stat.save()
+
+            return True
+        else:
+            return False
+
+    def to_dict(self):
+        return {
+            "id": self.stat_id,
+            "player": self.player,
+            "games": self.games,
+            "points": self.points,
+            "defence": self.defence,
+            "year": self.year,
+        }
+
+    def update(self, games=None, points=None, defence=None,year=None):
+        if games:
+            self.games = games
+
+        if points:
+            self.points = points
+
+        if defence:
+            self.defence = defence
+
+        if year:
+            self.year = year
+
+        self.save()
+
+        return None
+
+    def add_stat(self,points,defence):
+        self.games += 1
+        self.points += points
+        self.defence += defence
+
+        return True
+
+    @staticmethod
+    def get_all():
+        return PlayerStatistic.objects.all()
+

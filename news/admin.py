@@ -22,7 +22,8 @@ class NewsModel(admin.ModelAdmin):
 
     fieldsets = (
         (None, {"fields": ("title","content","photo_content")}),
-        ("Тільки для перегляду",{"fields": ("date_of_pub",)})
+        ("Тільки для перегляду",{"fields": ("date_of_pub",)}),
+        ("Необов'язкове поле:",{"fields":("tournament",)}),
     )
 
 admin.site.register(News,NewsModel)
