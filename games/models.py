@@ -66,7 +66,7 @@ class Tournament(models.Model):
 
     @staticmethod
     def get_all():
-        return Game.objects.all()
+        return Tournament.objects.all()
 
     def add_team(self, teams):
         if type(teams) == "list":
@@ -78,16 +78,18 @@ class Tournament(models.Model):
         self.save()
 
     def delete_team_by_id(self, id):
-        for team in self.teams:
-            if team.team_id == id:
-                self.teams.remove(team)
-                break
+        team = self.teams.get(team_id=id)
+
+        self.teams.remove(team)
         return None
 
-    def delete_all_players(self):
+    def delete_all_teams(self):
         self.teams.clear()
 
         return True
+
+    def get_all_teams(self):
+        return self.teams.all()
 
 class Statement(models.Model):
     statement_id = models.AutoField(primary_key=True)

@@ -1,0 +1,23 @@
+{% extends "admin_adds/base_admin.html" %}
+
+{% block title %} Вісторонення команди {% endblock %}
+
+{% block content %}
+    <div>
+        <p> Id турніру: {{tournament.tournament_id}} </p>
+        <p> Назва турніру: {{tournament.tournament_name}} </p>
+        <p> Дати проведення: {{tournament.date_of_start}} -- {{tournament.date_of_end}} </p>
+        <ul>
+            <form method="POST">
+                {% csrf_token %}
+                {% for team in teams %}
+                <span style="display: flex">
+                    <li> {{ team }} </li>
+                    <input name="team" type="checkbox" value="{{team.team_id}}">
+                </span>
+                {% endfor %}
+                <button type="submit">Відсторонити</button>
+            </form>
+        </ul>
+    </div>
+{% endblock %}

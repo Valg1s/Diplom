@@ -9,7 +9,8 @@ class NewsTestCases(TestCase):
 
     def test_add_news_wrong_value(self):
         #We have if block,where if title length lower than 5 chars ?must return False
-        self.assertFalse(News.create("Er","Трохи контексту"),"Add wrong news")
+        self.assertFalse(News.create("Er","Трохи контексту"),"Add wrong news first")
+        self.assertFalse(News.create("Eror", "Трохи контексту"), "Add wrong news second")
 
     def test_get_all(self):
         # I'm testing this function by method len() ,cuz class ,what will be returned, is QuerySet

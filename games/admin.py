@@ -9,6 +9,7 @@ from team.models import Team
 from . import views
 
 class TournamentAdmin(admin.ModelAdmin):
+    list_display = ("__str__","delete_team")
     ordering = ("-date_of_start", "-date_of_end",)
     search_fields = ("tournament_name",)
 
@@ -17,6 +18,19 @@ class TournamentAdmin(admin.ModelAdmin):
         (None, {"fields": ("tournament_name", ("date_of_start", "date_of_end",))}),
         ("Додавати тільки по заявках",{"fields": ("teams",)})
     )
+
+    def delete_team(self,obj):
+        if obj.teams.all():
+            context = {
+                "redirect_to": 'custom_admin:remove',
+                "parameter": obj.tournament_id,
+                "text": "Відсторонити команду",
+            }
+        elif not obj.teams.all():
+            context = {"text":"Команди відсутні"}
+        return format_html(render_to_string("admin_adds/admin_button.html",context=context))
+
+    delete_team.short_description = "Відсторонення команди"
 
 class GameAdmin(admin.ModelAdmin):
     list_filter = ("date_of_game",)

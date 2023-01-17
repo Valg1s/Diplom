@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "admin_adds/base_admin.html" %}
+
+{% block title %} Відповідь на заяву {% endblock %}
+
+{% block content %}
     <p>Id: {{ statement.statement_id}}</p>
     <p>Тренер: {{ statement.coach}}</p>
     <p>Команда: {{ statement.team}}</p>
@@ -12,7 +10,6 @@
     <p>Повідомлення: {{ statement.context}}</p>
     <p>Дата надходження: {{ statement.date}}</p>
     <div style="display:flex">
-
         <a href="/admin/games/statement">Назад</a>
 
         <form method="POST">
@@ -28,5 +25,4 @@
             <button type="submit" class="btn"> Відхилити заяву </button>
         </form>
     </div>
-</body>
-</html>
+{%endblock%}
