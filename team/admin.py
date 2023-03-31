@@ -13,4 +13,5 @@ class TeamAdmin(admin.ModelAdmin):
         ("Тільки для перегляду", {"fields": ("team_name","team_coach","year_of_create","players","logo")}),
     )
 
+
 admin.site.register(Team,TeamAdmin)

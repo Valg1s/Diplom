@@ -1,0 +1,11 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1> {{news.title}} </h1>
+    <img src="{% static news.photo_content.url %}">
+    <p> {{ news.content }}</p>
+    {% if user.role == 1 and not stat %}
+      <a href="{% url 'news:statement' news_id=news.news_id %}">Подати заяву</a>
+    {% endif %}
+{% endblock %}

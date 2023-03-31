@@ -1,6 +1,27 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title%}{% endblock%}</title>
 
-{% block body %}
-    {%block content%}
-    {% endblock %}
-{% endblock %}
+    <link rel="stylesheet" href="{% static '/css/admin_base.css' %}">
+</head>
+
+<body class="admin_body">
+    <header class="admin_header">
+        {% block header%}
+        {% endblock %}
+    </header>
+    <main class="admin_main">
+        <div class="admin_content">
+            {% block main %}
+            {% endblock %}
+        </div>
+    </main>
+    <footer class="admin_footer">
+        {%block footer%}
+        {% endblock %}
+    </footer>
+</body>
+</html>

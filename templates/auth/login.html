@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+    <div>
+        <img src="{% static 'media/logo.png' %}">
+
+        {% if form.errors %}
+            <p>Ваша електронна пошта та пароль не зівпали. Спробуйте ще раз</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <p> {{ form.email }} </p>
+            <p> {{ form.password }} </p>
+
+            <button type="submit"> Увійти </button>
+        </form>
+
+    </div>
+{% endblock %}

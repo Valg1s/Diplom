@@ -10,6 +10,7 @@ STATUS_CHOICE = (
     (2,"Відхилено"),
 )
 
+
 class Tournament(models.Model):
     tournament_id = models.AutoField(primary_key=True)
     tournament_name = models.CharField(null=False, max_length=128, verbose_name="Назва турніру")

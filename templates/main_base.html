@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <div class="sponsor__block-left">
+        <div>
+            <img src="">
+            <p> First Sponsore</p>
+        </div>
+        <div>
+            <img src="">
+            <p> Second Sponsore</p>
+        </div>
+    </div>
+    <div class="main__content">
+        {% block content %}
+            <h2> Сторінку не знайдено </h2>
+        {% endblock %}
+    </div>
+    <div class="sponsor__block-right">
+        <div>
+            <img src="">
+            <p> Third Sponsore</p>
+        </div>
+        <div>
+            <img src="">
+            <p> Fourth Sponsore</p>
+        </div>
+    </div>
+{% endblock %}

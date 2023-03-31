@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import re_path , include
 
 urlpatterns = [
-    re_path(r'^admin/options/',include('authentication.urls',namespace="custom_admin"), name="custom_admin"),
+    re_path(r'^admin/options/',include('authentication.urls',namespace="custom_admin")),
     re_path(r'^admin/', admin.site.urls),
+    re_path(r"^", include("news.urls",namespace="news")),
 ]

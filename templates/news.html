@@ -1,0 +1,12 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1> Новини </h1>
+    {% for news in news_list %}
+        <div>
+            <a href="{% url 'news:spec_news' news_id=news.news_id %}" >{{ news.title }}</a>
+            <img src="{% static news.photo_content.url %}">
+        </div>
+    {% endfor %}
+{% endblock %}

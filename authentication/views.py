@@ -2,6 +2,7 @@ from django.shortcuts import render ,Http404,redirect
 
 from games.models import Statement , Tournament
 
+
 def accept_statements(request,id):
     if request.method == "GET":
         statement = Statement.get_by_id(id)
@@ -24,6 +25,7 @@ def accept_statements(request,id):
         return redirect("/admin/games/statement/")
     else:
         return Http404
+
 
 def delete_team(request,id):
     if request.method == "GET":
@@ -50,3 +52,5 @@ def delete_team(request,id):
         return redirect("/admin/games/tournament/")
     else:
         return Http404
+
+

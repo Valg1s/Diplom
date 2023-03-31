@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html lang="ua">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>{% block title%}{% endblock%}</title>
+
+    <link rel="stylesheet" href="{% static '/css/base.css' %}">
+    <link rel="stylesheet" href="{% static '/js/scrypt.js' %}" defer>
 </head>
-<header>
-    {% block header%}
-    {% endblock %}
-</header>
-<body>
-    {%block body%}
-    {% endblock %}
+
+<body class="body">
+    <header class="header">
+        <div class="header__box">
+            <a class="header__logo-link" href="/" >
+                <img class="header__logo-img" src="{% static 'media/logo.png' %}">
+                <p class="header__logo-text"> VolleyBall <br> League </p>
+            </a>
+            <a class="header__menu" href="#">
+
+            </a>
+        </div>
+
+    </header>
+    <main class="main">
+        {% block main %}
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        {%block footer%}
+        {% endblock %}
+    </footer>
 </body>
-<footer>
-    {%block footer%}
-    {% endblock %}
-</footer>
 </html>

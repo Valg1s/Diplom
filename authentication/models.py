@@ -49,6 +49,8 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(('Superuser must have is_superuser=True.'))
         return self.create_user(email, password, **extra_fields)
 
+    def get_by_natural_key(self, email):
+        return self.get(email=email)
 
 class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
@@ -56,7 +58,7 @@ class CustomUser(AbstractBaseUser):
     last_name = models.CharField(max_length=20, default='', verbose_name="Прізвище")
     middle_name = models.CharField(max_length=20, default='', verbose_name="По батькові")
     email = models.EmailField(max_length=100, unique=True, default='', verbose_name="Email")
-    password = models.CharField(max_length=200,default="standartpassword", verbose_name="Пароль")
+    password = models.CharField(max_length=200,blank=True, verbose_name="Пароль")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створений в")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Оновлений")
     role = models.IntegerField(default=2, choices=ROLE_CHOICES, verbose_name="Роль")

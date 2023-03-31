@@ -2,14 +2,14 @@
 
 {% block title %} Відповідь на заяву {% endblock %}
 
-{% block content %}
+{% block main %}
     <p>Id: {{ statement.statement_id}}</p>
-    <p>Тренер: {{ statement.coach}}</p>
-    <p>Команда: {{ statement.team}}</p>
-    <p>Турнір: {{ statement.tournament}}</p>
-    <p>Повідомлення: {{ statement.context}}</p>
-    <p>Дата надходження: {{ statement.date}}</p>
-    <div style="display:flex">
+    <p>Тренер: <a href="/admin/authentication/customuser/{{statement.coach.user_id}}">{{ statement.coach }}</a></p>
+    <p>Команда: <a href="/admin/team/team/{{statement.team.team_id}}">{{ statement.team }}</a></p>
+    <p>Турнір: <a href="/admin/games/tournament/{{statement.tournament.tournament_id}}">{{ statement.tournament }}</a></p>
+    <p>Повідомлення: {{ statement.context }}</p>
+    <p>Дата надходження: {{ statement.date }}</p>
+    <div class="admin_form">
         <a href="/admin/games/statement">Назад</a>
 
         <form method="POST">

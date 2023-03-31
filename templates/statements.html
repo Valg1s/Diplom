@@ -1,0 +1,32 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1> Заява на участь </h1>
+    <h2>Ваші дані:</h2>
+    <div>
+        {{form.coach.label}}
+        {{form.coach}}
+
+        {{form.team.label}}
+        {{form.team}}
+
+        {{form.tournament.label}}
+        {{form.tournament}}
+    </div>
+
+    <h2>Заповніть</h2>
+
+    <form id="statement_form" method="POST" >
+        {% csrf_token %}
+        {{form.context.label}}
+        {{form.context}}
+
+        <button type="submit" >Відправити</button>
+    </form>
+
+    <div id="popup" style="display: none;">
+        <p> Заява успішно відправлена! Очікуйте на повідомлення на ваш Email </p>
+        <p> Переадресація...</p>
+    </div>
+{% endblock %}

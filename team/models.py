@@ -9,7 +9,7 @@ from authentication.models import CustomUser
 class Team(models.Model):
     team_id = models.AutoField(primary_key=True)
     team_name = models.CharField(null=False, max_length=128, verbose_name="Назва команди")
-    team_coach = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, verbose_name="Тренер",related_name="Тренер")
+    team_coach = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, verbose_name="Тренер",related_name="coach")
     year_of_create = models.IntegerField(null=False, default=int(datetime.now().year), verbose_name="Рік створення")
     players = models.ManyToManyField(CustomUser, null=True,blank=True, verbose_name="Гравці",related_name="Гравець")
     logo = models.ImageField(null=True, default="default_logo.png",verbose_name="Логотип")

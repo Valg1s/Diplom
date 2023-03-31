@@ -1,0 +1,26 @@
+.header__box{
+    display:flex;
+    border-bottom: solid 1px #000;
+}
+
+.header__logo-link{
+    display:flex;
+}
+
+.main{
+    display:flex;
+}
+
+.sponsor__block-left{
+    height: 288px;
+    border-right: solid 1px #000;
+}
+
+.sponsor__block-right{
+    height: 288px;
+    border-left: solid 1px #000;
+}
+
+.main__content{
+    text-align: center;
+}

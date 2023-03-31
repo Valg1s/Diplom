@@ -1,0 +1,18 @@
+*{
+    box-sizing: border-box;
+}
+
+.admin_body{
+}
+
+.admin_main{
+
+}
+
+.admin_content{
+    background-color:#79aec8;
+    border: 2px solid black;
+    border-radius: 20px;
+    color: #ffffff;
+    //margin: auto;
+}
