@@ -1,0 +1,100 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1> {{ team_name }} </h1>
+    <div class="myteam__info-block">
+        <div class="myteam__img-block">
+            <img class="team_logo" src="{% static logo %}" alt="Логотип команди" >
+        </div>
+        <div class="myteam__info-text">
+            <p> Тренер: {{coach}} </p>
+            <p> Рік створення: {{ year }} </p>
+        </div>
+    </div>
+
+    <div class="myteam__link-block">
+        <a class="myteam__link-button" href="#" onclick="ChangeWindow(1)" >Мій профіль</a>
+        <a class="myteam__link-button opened" href="#" onclick="ChangeWindow(2)" >Моя команда</a>
+        <a class="myteam__link-button" href="#" onclick="ChangeWindow(3)" >Турніри</a>
+    </div>
+
+    <div id="my_profile" class="myteam__bloock">
+        <div class="myprofile__block">
+            <div class="myprofile__block-info">
+                <p>Прізвище: {{user.last_name}}</p>
+                <p>Ім'я: {{user.first_name}}</p>
+                <p>По Батькові: {{user.middle_name}}</p>
+                <p>Роль: {% if user.role == 1 %} Тренер {% elif user.role == 2 %} Гравець {% endif %}</p>
+                <p>Дата народження: {{user.date_of_birth}} ({{user_age}} років) </p>
+            </div>
+            <div class="myprofile__block-changedata">
+                <div class="myprofile__input-block">
+                    <span id="error_email" class="none">Емейл повинен бути не пустим</span>
+                    <label for="user_email">Email:</label>
+                    <input class="blocked__input" type="email" id="user_email" readonly="readonly" value="{{ user.email }}" required>
+                </div>
+                
+                <div id="change_user_password" class="none">
+                    <div class="myprofile__input-block">
+                        <span class="none" id="error_password">Паролі повинні зівпадати</span>
+                        <label for="password1">Введіть новий пароль:</label>
+                        <input id="password1" type="password">
+                    </div>
+                    <div class="myprofile__input-block">
+                        <label for="password2">Повторіть новий пароль:</label>
+                        <input id="password2" type="password">
+                    </div>
+                    <button class="button_link" onclick="changeUserData(event,'{{csrf_token}}')" >Змінити</button>
+                </div>
+            </div>
+        </div>
+        <button id="change_data_open" class="button_link"  onclick="changeData(event)" >Змінити дані</button>
+    </div>
+
+    <div id="my_team" class="myteam__bloock open" >
+        <div class="myteam__block">
+            <input id="search_input" type="text" placeholder="Пошук">
+
+            <table class="myteam__table" id="table_player">
+                <tr class="myteam__table-headers">
+                    <th class="table_number-header" >#</th>
+                    <th class="table_fullname-header" >ПІБ</th>
+                    <th class="table_age-header" >Вік</th>
+                    <th class="table_stat-header" >Статистика</th>
+                    <th class="table_do-header" >Дії</th>
+                </tr>
+                {% for player in players %}
+                <tr class="myteam__table-body" id="player_{{player.player_id}}">
+                    <td class="table_number">{{ forloop.counter }}</td>
+                    <td class="table_fullname">{{ player.full_name }}</td>
+                    <td class="table_age" >{{player.date_of_birth|date:'d.m.Y'}}({{ player.age }} років)</td>
+                    <td class="table_stat">
+                        {% if player.player_stat %}
+                        <a href="#" onclick="getStatistic('{{player.full_name}}',{{player.player_stat.year}},{{player.player_stat.games}},{{player.player_stat.points}},{{player.player_stat.defence}})" >Статистика</a>
+                        {% endif %}
+                    </td>
+                    <td class="table_do">
+                        {% if user.role == 1 %}
+                            <form id="delete-form-{{player.player_id}}" method="POST">
+                                {% csrf_token %}
+                                <button class="delete__button"  onclick="sendDeleteForm(event,{{ player.player_id }},'{{csrf_token}}')" > X </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+
+    <div id="tournamnts" class="myteam__bloock">
+        {% for tournament in tournaments %}
+            <div class="tournament__block">
+                <h3><a href="{% url 'news:tournament' tournament_id=tournament.tournament_id %}">{{tournament.tournament_name}}</a></h3>
+                <p>{{ tournament.date_of_start }} -- {{ tournament.date_of_end }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

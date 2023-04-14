@@ -11,7 +11,7 @@ class Team(models.Model):
     team_name = models.CharField(null=False, max_length=128, verbose_name="Назва команди")
     team_coach = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, verbose_name="Тренер",related_name="coach")
     year_of_create = models.IntegerField(null=False, default=int(datetime.now().year), verbose_name="Рік створення")
-    players = models.ManyToManyField(CustomUser, null=True,blank=True, verbose_name="Гравці",related_name="Гравець")
+    players = models.ManyToManyField(CustomUser, null=True,blank=True, verbose_name="Гравці",related_name="player")
     logo = models.ImageField(null=True, default="default_logo.png",verbose_name="Логотип")
 
     class Meta:
@@ -42,8 +42,7 @@ class Team(models.Model):
 
     @staticmethod
     def create(name, coach, year=None, logo=None):
-        if type(coach) == "int":
-            coach = CustomUser.get_by_id(coach)
+        coach = CustomUser.get_by_id(coach)
 
         team = Team(team_name=name, team_coach=coach, year_of_create=year, logo=logo)
 

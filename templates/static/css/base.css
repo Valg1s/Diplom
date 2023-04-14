@@ -1,26 +1,505 @@
+html{
+    box-sizing: border-box;
+}
+*{
+    box-sizing: inherit;
+}
+
+body{
+    padding: 121.8px 0 0 0;
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 24px;
+    line-height: 1.21;
+
+    background-color: rgba(247, 233, 234,0.2);
+  }
+
+
+input{
+    width: 467px;
+    height: 44px;
+    
+    border: 1px solid #0185CF;
+    border-radius: 10px;
+
+    color: #0185CF;
+
+    padding: 0 5px;
+
+    font-size: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.header__logo-text{
+    color: #000;
+}
+
+.specific__news-block{
+    padding: auto;
+}
+
+.myteam__info-block{
+    display: flex;
+    border-bottom: 1px solid #000;
+    justify-content: center;
+}
+
+.myteam__img-block{
+    border-right: solid 1px #000;
+    width: 100%;
+}
+
+.team_logo{
+    display: block;
+    margin-left: auto;
+    padding-right: 30px;
+    padding-bottom: 20px;
+
+    width: 175px;
+}
+
+.myteam__info-text, .kulik_loh{
+    flex-basis: 100%;
+}
+
+.myteam__info-text{
+    text-align: left;
+    padding-left: 30px;
+}
+
 .header__box{
     display:flex;
     border-bottom: solid 1px #000;
+
+    justify-content: space-between;
+
+    position: fixed;
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    background: #B2CDDD;
+    padding: 0px 50px 0px 50px;
+
+    align-items: center;
+}
+
+.header__logo-text{
+    padding-top: 15px;
 }
 
 .header__logo-link{
     display:flex;
+    align-items: center;
+}
+
+.news__block-image{
+    width: 100%;
 }
 
 .main{
     display:flex;
+    justify-content: space-between;
+   
 }
 
 .sponsor__block-left{
-    height: 288px;
+    flex-basis: 20%;
+    min-height: calc(100vh- 400px );
     border-right: solid 1px #000;
+    flex-shrink: 1;
+    text-align: center;
+    left: 0;
 }
 
 .sponsor__block-right{
-    height: 288px;
+    flex-basis: 20%;
+    min-height: calc(100vh- 400px );
     border-left: solid 1px #000;
+    text-align: center;
+    right: 0;
+}
+
+.sponsor__block-left, .sponsor__block-right{
+    position: fixed;
+    top: 121.8px;
+    width: 20%;
+    padding-top: 25px;
+    bottom: 0;
 }
 
 .main__content{
     text-align: center;
+    max-width: 60%;
+    flex-basis: 60%;
+    margin: 0 auto;
+    min-height: calc(100vh- 400px );
+}
+
+.header__logo-img{
+    width: 100px;
+    height: 101px;
+}
+
+.header__menu-img{
+    height: 54px;
+    width: 70px;
+}
+
+.header__menu-user{
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+}
+
+.header__menu-text{
+    margin-top: 5px;
+    border-bottom: solid 1px #000;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+
+.news__block{
+    width: 80%;
+    
+    text-align: center;
+    display: inline-block;
+
+    padding-top: 17px;
+    padding-bottom: 100px;
+    
+    border-top: 1px solid #DEDDDD;
+}
+
+.news__block-link{
+    display: block;
+
+    padding-bottom: 35px;
+}
+
+.header__menu{
+    position: relative;
+    display: inline-block;
+
+    padding-top: 22.5px;
+}
+
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 260px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border: solid 1px #000;
+    left: -150px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.header__menu-logout{
+    color: #FF3737;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown__content-link {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    color: #0185CF;
+  }
+
+.show {
+    display: block;
+}
+
+.myteam__bloock{
+    display: none;
+    justify-content: center;
+
+    margin-bottom: 20px;
+}
+
+.open{
+    display: block;
+}
+
+.none{
+    display: none;
+}
+
+.button_link{
+    padding: 10px 20px;
+    gap: 10px;
+    background: #0185CF;
+    border-radius: 10px;
+    color: #FFF;
+    margin-bottom:10px;
+    font-size: 24px;
+}
+
+.blocked__input{
+    width: 465px;
+    height: 44px;
+    border: 1px solid #A4A6A7;
+    border-radius: 10px;
+    color: #A4A6A7;
+}
+
+#id_context{
+    resize: none;
+    width: 465px;
+    height: 185px;
+    border: 1px solid #0185CF;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    font-size: 20px;
+    padding: 5px;
+}
+
+.input__block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 250px;
+}
+
+.statement__headers{
+    text-align: left;
+    padding-left: 50px;
+}
+
+.login__block-img{
+    width: 150px;
+    height: 151.52px;
+}
+
+#statement_form{
+    margin-bottom: 20px;
+}
+
+.login__block{
+    padding: 15px;
+    border: 1px solid #0185CF;
+    border-radius: 10px;
+    /*margin:150px 220px 220px 600px;*/
+    margin: 100px auto;
+    text-align: center;
+}
+
+.login__block-text{
+    max-width: 650px;
+    color: #0185CF;
+}
+
+.alert-danger{
+    color: #FF3737;
+}
+
+.myteam__link-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 55px;
+    border: 1px solid #000000;
+    padding: 10px;
+    color: #000;
+    flex-basis: 100%;
+}
+
+.myteam__link-block{
+    margin: 20px auto;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.myprofile__block{
+    display: flex;
+    justify-content: space-between;
+}
+
+.myprofile__block-info{
+    text-align: left;
+    padding-left: 20px;
+}
+
+.myprofile__block-changedata{
+    padding-right: 20px;
+}
+
+.myprofile__input-block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px auto;
+}
+
+.myteam__block{
+    padding-top: 10px;
+}
+
+.myteam__table{
+    margin-top: 20px;
+    width: 100%;
+    border-spacing: 0px;
+    position: static;
+}
+
+.myteam__table-headers{
+    border: 1px solid #000;
+}
+
+.table_number-header{
+    border: 1px solid #000;
+}
+
+.table_fullname-header{
+    border: 1px solid #000;
+}
+
+.table_age-header{
+    border: 1px solid #000;
+}
+
+.table_stat-header{
+    border: 1px solid #000;
+}
+
+.table_do-header{
+    border: 1px solid #000;
+}
+
+.table_number{
+    border-bottom: 1px solid #DEDDDD;
+    border-right: 1px solid #DEDDDD;
+}
+
+.table_fullname{
+    border-bottom: 1px solid #DEDDDD;
+    border-right: 1px solid #DEDDDD;
+    text-align: left;
+}
+
+.table_age{
+    border-bottom: 1px solid #DEDDDD;
+    border-right: 1px solid #DEDDDD;
+}
+
+.table_stat{
+    border-bottom: 1px solid #DEDDDD;
+    border-right: 1px solid #DEDDDD;
+}
+
+.table_do{
+    border-bottom: 1px solid #DEDDDD;
+}
+
+.delete__button{
+    color: #FF3737;
+    margin-bottom: 5px;
+}
+
+/* .myteam__table-body{
+    border-bottom: 10px solid ;
+    z-index: 9999;
+    min-height: 30px;
+} */
+
+.tournament__block{
+    text-align: left;
+    padding-left: 20px;
+    border-top: 1px solid #DEDDDD ;
+    border-bottom: 1px solid #DEDDDD ;
+
+    transform: rotate(0.2deg);
+}
+
+.tournament__teams{
+}
+
+.tournament__table{
+    margin: 0 auto;
+    border-spacing: 0px;
+}
+
+/* 
+
+.game__place{
+    margin-right: 500px;
+}
+
+*/
+
+.game_store{
+    font-weight: bold;
+} 
+
+.game_blocks{
+    
+    display: flex;
+    justify-content: space-between;
+    margin: 0 15px;
+}
+
+.game__teams{
+    flex-basis: 300px;
+    font-weight: bold;
+}
+
+.tournament__game-block{
+    border-bottom: solid 1px #DEDDDD;
+}
+
+.tournament__games-block{
+    border-top: solid 1px #DEDDDD;
+}
+
+.opened{
+    background-color: #DEDDDD;
+}
+
+.tournament__table-td{
+    border: 1px solid #DEDDDD;
+    padding: 10px;
+}
+
+.tournament__list{
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tournament__list-item{
+    padding: 20px;
+}
+
+.FVU{
+    width: 100%;
+}
+
+.rozetka, .mezuno{
+    width: 80%;
+}
+
+.errea{
+    width: 60%;
+}
+
+.sponsore__text{
+    margin: 10px;
+}
+
+.FAQ__content{
+    padding: 10px;
+    text-align: left;
 }

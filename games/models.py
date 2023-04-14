@@ -168,9 +168,11 @@ class Game(models.Model):
     second_team = models.ForeignKey(Team, related_name="team_2", on_delete=models.DO_NOTHING, verbose_name="Команда 2")
     winner = models.ForeignKey(Team, related_name="winner", on_delete=models.DO_NOTHING, verbose_name="Переможець",
                                null=True)
+    set_first_team = models.IntegerField(verbose_name="Виграні сети першої команди",default=0)
+    set_second_team = models.IntegerField(verbose_name="Виграні сети другої команди",default=0)
     store = models.CharField(null=True, max_length=64, verbose_name="Рахунок")
     date_of_game = models.DateTimeField(verbose_name="Дата проведення")
-    tournament = models.ForeignKey(Tournament, on_delete=models.DO_NOTHING, verbose_name="Турнір(Назва турніру чи товариська гра)")
+    tournament = models.ForeignKey(Tournament, on_delete=models.DO_NOTHING, related_name="tournament_game" ,verbose_name="Турнір(Назва турніру чи товариська гра)")
 
     class Meta:
         verbose_name_plural = 'Ігри'

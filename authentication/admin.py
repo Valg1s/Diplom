@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.core.mail import get_connection,send_mail
+from django.core.mail import get_connection,EmailMessage
 from django.conf import settings
 
 from .models import CustomUser, PlayerStatistic
@@ -33,7 +33,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (
-            None, {"fields": ("last_name", "first_name", "middle_name", "role")}
+            None, {"fields": ("last_name", "first_name", "middle_name", "role","date_of_birth")}
         ),
         (
             "Конфіденційні дані", {"fields":("email",)}
@@ -56,22 +56,26 @@ class CustomUserAdmin(admin.ModelAdmin):
         if not obj.pk:
             obj = CustomUser.objects.create_user(
                 email=obj.email, password="standartpassword", first_name=obj.first_name,
-                last_name=obj.last_name, middle_name=obj.middle_name, role=obj.role
+                last_name=obj.last_name, middle_name=obj.middle_name, role=obj.role,date_of_birth=obj.date_of_birth
             )
 
-            '''send_mail(
-                subject='Реєстрація у Волейбольній Лізі',
-                message=f'Добрий день, {obj.last_name} {obj.first_name}!Ви були успішно зареєстровані у базі даних Ліги.'
-                f' Ви можете зайти за допомогою вашої пошти: {obj.email} та паролем "standartpassword".'
-                f' Дякую за реєстрацію! ',
-                from_email='kursworkvolleyballleague@gmail.com',
-                recipient_list=[obj.email],
-                fail_silently=False,
-                auth_user='kursworkvolleyballleague@gmail.com',
-                auth_password='Strongpassword123',
-                connection=None,
-                html_message=None,
-            )'''
+            with get_connection(
+                                host=settings.EMAIL_HOST,
+                                port=settings.EMAIL_PORT,
+                                username=settings.EMAIL_HOST_USER,
+                                password=settings.EMAIL_HOST_PASSWORD,
+                                use_tls=settings.EMAIL_USE_TLS
+            ) as connection:
+                subject = "Реєстрація у волейбольній лізі"
+                message = f"Добрий день, {obj.last_name} {obj.first_name}!\n\nВаш аккаунт був успішно зареєстрований" \
+                          f" на сайті волейбольної ліги!\nЩоб увійти в аккаунт,Вам потрібно перейти" \
+                          f" за посиланням: <тут повинне бути посилання>.\nВведіть" \
+                          f" Вашу пошту,на яку прийшов цей лист,та пароль standartpassword ,після чого ви зможете" \
+                          f" змінити його.\n\nДякую за вашу участь!"
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [obj.email]
+
+                EmailMessage(subject, message, email_from, recipient_list, connection=connection).send()
 
         else:
             obj.save()

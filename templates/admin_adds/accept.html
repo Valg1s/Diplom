@@ -10,19 +10,21 @@
     <p>Повідомлення: {{ statement.context }}</p>
     <p>Дата надходження: {{ statement.date }}</p>
     <div class="admin_form">
-        <a href="/admin/games/statement">Назад</a>
+        <a class="button_link" href="/admin/games/statement">Назад</a>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input name="statement_id" type="hidden" value="{{statement.statement_id}}">
+            <input name="method" type="hidden" value="Decline">
+            <button type="submit" class="button_link red"> Відхилити заяву </button>
+        </form>
 
         <form method="POST">
             {% csrf_token %}
             <input name="statement_id" type="hidden" value="{{statement.statement_id}}">
             <input name="method" type="hidden" value="Accept">
-            <button type="submit" class="btn"> Підтвердити заяву </button>
+            <button type="submit" class="button_link green"> Підтвердити заяву </button>
         </form>
-        <form method="POST">
-            {% csrf_token %}
-            <input name="statement_id" type="hidden" value="{{statement.statement_id}}">
-            <input name="method" type="hidden" value="Decline">
-            <button type="submit" class="btn"> Відхилити заяву </button>
-        </form>
+
     </div>
 {%endblock%}

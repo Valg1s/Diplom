@@ -37,10 +37,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'kursworkvolleyballleague@gmail.com'
+EMAIL_HOST_USER = 'kurswork@outlook.com'
 EMAIL_HOST_PASSWORD = 'Strongpassword123'
 
 PASSWORD_HASHERS = [

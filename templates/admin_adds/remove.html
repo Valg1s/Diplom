@@ -10,13 +10,18 @@
         <ul>
             <form method="POST">
                 {% csrf_token %}
-                {% for team in teams %}
-                <span style="display: flex">
-                    <li> {{ team }} </li>
-                    <input name="team" type="checkbox" value="{{team.team_id}}">
-                </span>
-                {% endfor %}
-                <button type="submit">Відсторонити</button>
+                <ul class="remove__list">
+                    {% for team in teams %}
+                        <span style="display: flex">
+                            <input name="team" type="checkbox" value="{{team.team_id}}">
+                            <li> {{ team }} </li>   
+                        </span>
+                    {% endfor %}
+                </ul>
+                <div class="remove__buttons">
+                    <a class="button_link" href="/admin/games/tournament/">Назад</a>
+                    <button class="button_link red" type="submit">Відсторонити</button>
+                </div>    
             </form>
         </ul>
     </div>

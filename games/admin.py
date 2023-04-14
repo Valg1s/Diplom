@@ -32,20 +32,21 @@ class TournamentAdmin(admin.ModelAdmin):
 
     delete_team.short_description = "Відсторонення команди"
 
+
 class GameAdmin(admin.ModelAdmin):
     list_filter = ("date_of_game",)
     ordering = ("-date_of_game",)
 
     fieldsets = (
         (None, {"fields":("game_place",("first_team","second_team",),"date_of_game","tournament")}),
-        ("Необов'язкові поля(Заповнювати після гри)",{"fields":("winner","store")}),
+        ("Необов'язкові поля(Заповнювати після гри)",{"fields":("winner","store",("set_first_team","set_second_team"))}),
     )
 
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return self.readonly_fields + ("game_place","first_team","second_team","date_of_game","tournament")
 
-        return self.readonly_fields + ("winner", "store",)
+        return self.readonly_fields + ("winner", "store","set_first_team","set_second_team")
 
     def render_change_form(self, request, context, add=False, change=False, form_url="", obj=None):
         if obj:

@@ -2,10 +2,14 @@
 {% load static %}
 
 {% block content %}
-    <h1> {{news.title}} </h1>
-    <img src="{% static news.photo_content.url %}">
-    <p> {{ news.content }}</p>
-    {% if user.role == 1 and not stat %}
-      <a href="{% url 'news:statement' news_id=news.news_id %}">Подати заяву</a>
-    {% endif %}
+    <div class="specific__news-block">
+        <h1> {{news.title}} </h1>
+        <img src="{% static news.photo_content.url %}">
+        <p> {{ news.content }}</p>
+        {% if news.tournament %}
+            {% if stat %}
+                <a class="button_link" href="{% url 'news:statement' news_id=news.news_id %}">Подати заяву</a>
+            {% endif %}
+        {% endif %}  
+    </div>
 {% endblock %}

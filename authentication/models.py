@@ -3,7 +3,6 @@ import datetime
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
 
-
 ROLE_CHOICES = (
     (0, 'Адміністратор'),
     (1, 'Тренер'),
@@ -52,11 +51,13 @@ class CustomUserManager(BaseUserManager):
     def get_by_natural_key(self, email):
         return self.get(email=email)
 
+
 class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=20, default='', verbose_name="Ім'я")
     last_name = models.CharField(max_length=20, default='', verbose_name="Прізвище")
     middle_name = models.CharField(max_length=20, default='', verbose_name="По батькові")
+    date_of_birth = models.DateField(verbose_name="Дата народження",blank=False,null=False)
     email = models.EmailField(max_length=100, unique=True, default='', verbose_name="Email")
     password = models.CharField(max_length=200,blank=True, verbose_name="Пароль")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Створений в")
@@ -186,7 +187,7 @@ class CustomUser(AbstractBaseUser):
 
 class PlayerStatistic(models.Model):
     stat_id = models.AutoField(primary_key=True)
-    player = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING, related_name="player_stat", verbose_name="Гравець")
+    player = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="player_stat", verbose_name="Гравець")
     games = models.IntegerField(null=True,default=0, verbose_name="Ігри")
     points = models.IntegerField(null=True,default=0, verbose_name="Зароблено пунктів")
     defence = models.IntegerField(null=True,default=0, verbose_name="Успішних захистів")

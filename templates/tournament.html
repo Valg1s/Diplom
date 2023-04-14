@@ -1,0 +1,41 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{tournament_name}}</h1>
+<div class="tournament__teams">
+    <h2 class="statement__headers" >Команди:</h2>
+    <ul class="tournament__list">
+    {% for team in teams  %}
+        <li class="tournament__list-item">
+             {{ team.team_name }}
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+<div>
+    <h2 class="statement__headers" >Ігри:</h2>
+    <div class="tournament__games-block">
+        {% for game in games %}
+        <div class="tournament__game-block">
+            <div class="game_blocks">
+                <p class="game__place">
+                    {{game.game_place}}
+                </p>
+                <p>{{game.date_of_game|date:'d.m.Y початок о H:i'}}</p>
+            </div>
+            <div class="game_blocks">
+                <p class="game__teams" >{{ game.first_team.team_name }}</p>
+                <p class="game_store">{{ game.set_first_team }} - {{ game.set_second_team }}
+                <p class="game__teams">{{ game.second_team.team_name }}</p>
+            </div>
+            <p>
+                {% if game.store %}
+                    {{ game.store }}
+                {% endif %}
+            </p>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block main %}
     <div class="sponsor__block-left">
         <div>
-            <img src="">
-            <p> First Sponsore</p>
+            <img class="mezuno" src="{% static 'media/mezuno_banner.png' %}">
+            <p class="sponsore__text">Бренд спортивного інвентаря: "Mizuno" </p>
         </div>
         <div>
-            <img src="">
-            <p> Second Sponsore</p>
+            <img class="errea" src="{% static 'media/errea_banner.png' %}">
+            <p class="sponsore__text"> Бренд спортивного інвентаря: "Errea" </p>
         </div>
     </div>
     <div class="main__content">
@@ -18,12 +19,12 @@
     </div>
     <div class="sponsor__block-right">
         <div>
-            <img src="">
-            <p> Third Sponsore</p>
+            <img class="FVU" src="{% static 'media/fvu.jpeg' %}">
+            <p class="sponsore__text"> Федерація Волейболу України</p>
         </div>
         <div>
-            <img src="">
-            <p> Fourth Sponsore</p>
+            <img class="rozetka" src="{% static 'media/rozetka_banner.png' %}">
+            <p class="sponsore__text"> Інтернет магазин: "Rozetka"</p>
         </div>
     </div>
 {% endblock %}

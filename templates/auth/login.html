@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block main %}
-    <div>
-        <img src="{% static 'media/logo.png' %}">
+    <div class="login__block">
+        <img class="login__block-img" src="{% static 'media/league_logo.png' %}">
 
         {% if form.errors %}
             <p>Ваша електронна пошта та пароль не зівпали. Спробуйте ще раз</p>
@@ -14,7 +14,7 @@
             <p> {{ form.email }} </p>
             <p> {{ form.password }} </p>
 
-            <button type="submit"> Увійти </button>
+            <button class="button_link" type="submit"> Увійти </button>
         </form>
 
     </div>

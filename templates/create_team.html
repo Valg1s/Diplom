@@ -1,0 +1,24 @@
+{% extends "main_base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1> Створення команди </h1>
+    <form id="statement_form" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+
+        <div class="input__block">
+            {{ form.logo.label }}
+            {{ form.logo }}
+        </div>
+        <div class="input__block" >
+            {{ form.name.label }}
+            {{ form.name }}
+        </div>
+        <div class="input__block">
+            {{ form.year.label }}
+            {{ form.year }}
+        </div>
+
+        <button class="button_link" type="submit" >Створити</button>
+    </form>
+{% endblock %}

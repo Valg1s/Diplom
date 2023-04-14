@@ -6,19 +6,40 @@
     <title>{% block title%}{% endblock%}</title>
 
     <link rel="stylesheet" href="{% static '/css/base.css' %}">
-    <link rel="stylesheet" href="{% static '/js/scrypt.js' %}" defer>
+    <script src="{% static '/js/scrypt.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'media/favicon.png' %}">
 </head>
 
 <body class="body">
     <header class="header">
         <div class="header__box">
             <a class="header__logo-link" href="/" >
-                <img class="header__logo-img" src="{% static 'media/logo.png' %}">
+                <img class="header__logo-img" src="{% static 'media/league_logo.png' %}">
                 <p class="header__logo-text"> VolleyBall <br> League </p>
             </a>
-            <a class="header__menu" href="#">
-
-            </a>
+            <div class="header__menu">
+                <a href="#" onclick="myFunction()" class="dropmenu">
+                    <img class="header__menu-img" src="{% static 'media/menu.png' %}">
+                </a>
+                <div id="myDropdown" class="dropdown-content" >
+                    <img class="header__menu-user" src="{% static 'media/user.png' %}" alt="UserLogo" >
+                    {% if user.is_authenticated %}
+                        <p class="header__menu-text">Вітаємо, <br> {{request.user.last_name}} {{request.user.first_name}}</p>
+                        <a class="dropdown__content-link" href="{% url 'news:my_team' %}"> Моя команда</a>
+                        <a class="dropdown__content-link" href="{% url 'news:FAQ' %}"> FAQ</a>
+                        <a class="header__menu-logout" href="/logout/"> Вийти</a>
+                    {% else %}
+                        <p class="header__menu-text">Вітаємо Вас! <br> Увійдіть у систему, <br> щоб ми знали хто ви</p>
+                        <a class="dropdown__content-link" href="{% url 'news:FAQ' %}"> FAQ</a>
+                        <a class="dropdown__content-link" href="/login/"> Увійти</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
     </header>

@@ -4,9 +4,9 @@
 {% block content %}
     <h1> Новини </h1>
     {% for news in news_list %}
-        <div>
-            <a href="{% url 'news:spec_news' news_id=news.news_id %}" >{{ news.title }}</a>
-            <img src="{% static news.photo_content.url %}">
+        <div class="news__block">
+            <h2><a class="news__block-link" href="{% url 'news:spec_news' news_id=news.news_id %}" >{{ news.title }}</a></h2>
+            <img class="news__block-image" src="{% static news.photo_content.url %}">
         </div>
     {% endfor %}
 {% endblock %}

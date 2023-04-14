@@ -1,6 +1,5 @@
 from django import forms
-
-from authentication.models import CustomUser
+from django.utils import timezone
 
 
 class UserForm(forms.Form):
@@ -25,8 +24,16 @@ class ChangePasswordForm(forms.Form):
 
 
 class StatementForm(forms.Form):
-    coach = forms.CharField(label="Тренер:",widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    team = forms.CharField(label="Команда:",widget=forms.TextInput(attrs={'readonly':'readonly'}))
-    tournament = forms.CharField(label="Турнір:", widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    coach = forms.CharField(label="Тренер:",widget=forms.TextInput(attrs={'readonly':'readonly',"class":"blocked__input"}))
+    team = forms.CharField(label="Команда:",widget=forms.TextInput(attrs={'readonly':'readonly',"class":"blocked__input"}))
+    tournament = forms.CharField(label="Турнір:", widget=forms.TextInput(attrs={'readonly': 'readonly',"class":"blocked__input"}))
     context = forms.CharField(label="Повідомлення:", widget=forms.Textarea(attrs={"placeholder":"Ваше повідомлення",
                                                                                   'rows':4, 'cols':15}))
+
+
+class CreateTeamForm(forms.Form):
+    logo = forms.ImageField(label="Логотип")
+    name = forms.CharField(label="Назва команди",widget=forms.TextInput(attrs={"placeholder":"Назва команди"}))
+    year = forms.IntegerField(label="Рік створення", min_value=1850,
+                              max_value=int(timezone.now().year),
+                              widget=forms.NumberInput(attrs={"placeholder":"Рік створення"}))
